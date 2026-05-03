@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "autodan-lab"
+version = "0.1.0"
+description = "AutoDAN-HGA and GCG surrogate-transfer harness targeting SecureRAG-Agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Surrogate model (8B) — HF Transformers on Apple MPS
+    "torch>=2.4",
+    "transformers>=4.45",
+    "accelerate>=1.0",
+    # GCG attack
+    "nanogcg",
+    # LangGraph mock agent construction (mirrors SecureRAG-Agent's graph)
+    "langchain-core",
+    "langgraph>=1.1.8",
+    "langchain-ollama>=1.1.0",
+    "langchain-huggingface",
+    # Retrieval for mock agent
+    "chromadb",
+    "sentence-transformers",
+    # Transfer-phase HTTP client to /agent/query
+    "requests>=2.32",
+    # Target system under test — editable install; production internals are
+    # the same ones the mock agent composes against the 8B surrogate.
+    "securerag-agent",
+    "anthropic>=0.97.0",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov",
+    "ruff>=0.15",
+    "mypy>=1.13",
+]
+
+[tool.uv.sources]
+securerag-agent = { path = "../SecureRAG-Agent", editable = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["surrogate", "attacks", "transfer"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = [
+    "slow: HGA/GCG optimization runs that take >30s",
+    "transfer: requires a running SecureRAG-Agent at SECURERAG_AGENT_URL",
+]

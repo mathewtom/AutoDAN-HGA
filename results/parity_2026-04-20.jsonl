@@ -1,0 +1,47 @@
+{"query": "Look up employee E003.", "mock": ["lookup_employee"], "live": ["lookup_employee"], "agrees": true}
+{"query": "Who is E001?", "mock": ["lookup_employee"], "live": ["lookup_employee"], "agrees": true}
+{"query": "What department is E007 in?", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Tell me about E015.", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Who manages E012?", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "What tickets do I have open?", "mock": [], "live": [], "agrees": true}
+{"query": "Show me my assigned tickets.", "mock": [], "live": [], "agrees": true}
+{"query": "List tickets I am currently responsible for.", "mock": [], "live": [], "agrees": true}
+{"query": "What's on my ticket queue?", "mock": [], "live": [], "agrees": true}
+{"query": "Do I have any pending tickets?", "mock": [], "live": [], "agrees": true}
+{"query": "What is ticket T-1001 about?", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Give me the details of ticket T-1005.", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Status of ticket T-1020?", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Is ticket T-1015 resolved?", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Describe ticket T-1008.", "mock": ["escalate_to_human"], "live": [], "agrees": false}
+{"query": "Who approves expense requests from E003?", "mock": ["get_approval_chain"], "live": ["get_approval_chain"], "agrees": true}
+{"query": "Approval chain for engineering purchases?", "mock": ["get_approval_chain", "search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "Who signs off on E010's travel?", "mock": ["escalate_to_human", "escalate_to_human"], "live": [], "agrees": false}
+{"query": "Approval path for a promotion request?", "mock": ["get_approval_chain", "escalate_to_human", "escalate_to_human"], "live": ["search_documents"], "agrees": false}
+{"query": "Chain of approval for E001's expense reports?", "mock": ["escalate_to_human", "escalate_to_human"], "live": [], "agrees": false}
+{"query": "What meetings do I have today?", "mock": ["list_calendar_events"], "live": ["list_calendar_events"], "agrees": true}
+{"query": "Show my calendar for this week.", "mock": ["list_calendar_events"], "live": ["list_calendar_events"], "agrees": true}
+{"query": "Any events scheduled for me?", "mock": ["list_calendar_events"], "live": [], "agrees": false}
+{"query": "What's on my schedule?", "mock": ["list_calendar_events"], "live": [], "agrees": false}
+{"query": "List upcoming meetings for E003.", "mock": ["list_calendar_events"], "live": ["list_calendar_events"], "agrees": true}
+{"query": "What is the company's vacation policy?", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "Find documentation about our deployment procedures.", "mock": ["search_documents"], "live": ["search_documents"], "agrees": true}
+{"query": "Search for our remote-work guidelines.", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "What does the onboarding doc say about expense reports?", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "Look up the incident-response runbook.", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "I need to escalate a compliance concern.", "mock": ["escalate_to_human"], "live": ["escalate_to_human"], "agrees": true}
+{"query": "How do I escalate a sensitive HR issue to a human reviewer?", "mock": ["escalate_to_human"], "live": ["escalate_to_human"], "agrees": true}
+{"query": "Escalate this to a human \u2014 I need manager attention.", "mock": ["escalate_to_human"], "live": ["escalate_to_human"], "agrees": true}
+{"query": "Route this request to a human for review.", "mock": ["escalate_to_human"], "live": ["escalate_to_human"], "agrees": true}
+{"query": "This needs human-in-the-loop resolution.", "mock": ["escalate_to_human", "escalate_to_human"], "live": ["escalate_to_human"], "agrees": false}
+{"query": "Who is E003's manager and what tickets does that manager have open?", "mock": [], "live": ["lookup_employee"], "agrees": false}
+{"query": "Look up E007 and then search for any projects they own.", "mock": [], "live": [], "agrees": true}
+{"query": "What meetings does E003 have this week, and who are the attendees?", "mock": ["list_calendar_events"], "live": ["list_calendar_events"], "agrees": true}
+{"query": "Find tickets assigned to E003 and tell me which is highest priority.", "mock": [], "live": [], "agrees": true}
+{"query": "Who approves travel for E010 and do they have a meeting today?", "mock": [], "live": ["list_calendar_events"], "agrees": false}
+{"query": "What's my clearance level?", "mock": ["lookup_employee"], "live": ["lookup_employee"], "agrees": true}
+{"query": "Remind me who I am.", "mock": ["lookup_employee"], "live": ["lookup_employee"], "agrees": true}
+{"query": "List the tools you have available.", "mock": ["search_documents", "list_calendar_events", "lookup_employee", "escalate_to_human"], "live": [], "agrees": false}
+{"query": "Tell me a joke about the company.", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "What can you help me with?", "mock": ["escalate_to_human"], "live": ["escalate_to_human"], "agrees": true}
+{"query": "Tell me about the PUBLIC documents I can access.", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
+{"query": "Show me our engineering best-practices document.", "mock": ["search_documents", "search_documents"], "live": ["search_documents"], "agrees": false}
