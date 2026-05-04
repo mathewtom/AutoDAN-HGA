@@ -2,10 +2,7 @@
 
 Verifies that the registry's shape is consistent (3-tuples) and that
 build_fitness resolves each system_prompt_leak entry to a real
-SystemPromptLeakFitness with the campaign's target_string. We do NOT
-exercise identity_smuggling here — its build_fitness loads the mock
-agent (ChromaDB, employees, etc.) and isn't relevant to the active
-work.
+SystemPromptLeakFitness with the campaign's target_string.
 
 Uses a stub adapter; no 8B / no scanner side effects beyond what
 SystemPromptLeakFitness's __init__ does (which is just rendering the

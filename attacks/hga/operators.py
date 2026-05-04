@@ -1,22 +1,10 @@
-"""HGA genetic operators adapted for agentic-fitness search.
+"""HGA genetic operators — vendored from Liu et al. (AutoDAN, 2024).
 
-Upstream AutoDAN (Liu et al. 2024) uses LM-based mutation (call the
-target model to rephrase a prompt). That works when fitness is
-log-likelihood of a target string. For our setting — fitness is an
-audit-log check on a mock-agent invocation — each fitness eval
-already costs one full agent turn (LLM + tool dispatch + audit).
-Per-mutation LM calls would double the budget.
-
-These operators stay lexical: sentence-level crossover, word-level
-shuffle / drop / duplicate, and seed-grafting. For the T-001 control
-run this is sufficient — the hypothesis is "no rhetorical reframing
-bypasses AuthenticatedToolNode," and lexical perturbations over the
-seeded smuggling templates exercise that hypothesis efficiently.
-
-For T-006 / T-005 (research phases), adding LM-based sentence
-rephrase as an optional operator may help convergence. Guarded
-behind a `use_lm_mutation` flag on HGAConfig so the T-001 run stays
-cheap and deterministic.
+Sentence-level crossover, word-level shuffle / drop / duplicate, and
+seed-grafting. The default operator stays lexical (deterministic, free,
+fast); a Claude-driven semantic mutation operator is available via
+`--mutation-strategy claude`, which monkey-patches `mutate` at startup
+without editing this file.
 """
 
 from __future__ import annotations
@@ -122,10 +110,10 @@ def roulette_select(
 ) -> list[int]:
     """Pick `n` parent indices by fitness-proportional sampling.
 
-    If all fitnesses are zero (expected for T-001 control), falls
-    back to uniform random — prevents division by zero AND matches
-    the right behavior: when no prompt is "more fit" than another,
-    HGA should explore uniformly.
+    If all fitnesses are zero (e.g. every candidate blocked by the
+    scanner), falls back to uniform random — prevents division by
+    zero AND matches the right behavior: when no prompt is "more fit"
+    than another, HGA should explore uniformly.
     """
     total = sum(fitnesses)
     if total <= 0.0:
